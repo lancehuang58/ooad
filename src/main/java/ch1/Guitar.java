@@ -3,24 +3,16 @@ package ch1;
 public class Guitar {
 
   private final String serialNumber;
-  private final String model;
-  private final Builder builder;
-  private final Wood backWood;
-  private final Wood topWood;
-  private final Type type;
+  private final GuitarSpec guitarSpec;
 
   private double price;
 
   public Guitar(String serialNumber, double price,
                 Builder builder, String model, Type type,
-                Wood backWood, Wood topWood) {
+                Wood backWood, Wood topWood, Integer numOfStrings) {
     this.serialNumber = serialNumber;
     this.price = price;
-    this.builder = builder;
-    this.model = model;
-    this.type = type;
-    this.backWood = backWood;
-    this.topWood = topWood;
+    this.guitarSpec = new GuitarSpec(model, builder, backWood, topWood, type, numOfStrings);
   }
 
   public String getSerialNumber() {
@@ -34,22 +26,30 @@ public class Guitar {
     this.price = newPrice;
   }
   public String getModel() {
-    return model;
+    return guitarSpec.getModel();
   }
 
   public Builder getBuilder() {
-    return builder;
+    return guitarSpec.getBuilder();
   }
 
   public Wood getBackWood() {
-    return backWood;
+    return guitarSpec.getBackWood();
   }
 
   public Wood getTopWood() {
-    return topWood;
+    return guitarSpec.getTopWood();
   }
 
   public Type getType() {
-    return type;
+    return guitarSpec.getType();
+  }
+
+  public Integer getNumOfStrings() {
+    return this.guitarSpec.getNumOfStrings();
+  }
+
+  public GuitarSpec getGuitarSpec() {
+    return guitarSpec;
   }
 }
