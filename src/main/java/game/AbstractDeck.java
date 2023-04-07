@@ -20,11 +20,19 @@ public abstract class AbstractDeck {
         return this;
     }
 
-    ;
+    public AbstractDeck resetExcept(Card card) {
+        initCards(
 
+        );
+        return this;
+    }
     protected abstract AbstractDeck initCards();
 
     public Card drawCard() {
         return cards.remove(ThreadLocalRandom.current().nextInt(cards.size()));
+    }
+
+    public boolean isEmpty() {
+        return this.cards.isEmpty();
     }
 }

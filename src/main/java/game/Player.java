@@ -14,6 +14,10 @@ public abstract class Player {
         this.hand = new Hand();
     }
 
+    public Hand getHand() {
+        return hand;
+    }
+
     public String getName() {
         return name;
     }
@@ -40,5 +44,14 @@ public abstract class Player {
 
     public int getScore() {
         return score;
+    }
+
+    public boolean match(Card card) {
+        for (Card card1 : getHand()) {
+            if (card1.getColor() == card.getColor() || card1.getNumber().equals(card.getNumber())) {
+                return true;
+            }
+        }
+        return false;
     }
 }
