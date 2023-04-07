@@ -35,4 +35,7 @@ public abstract class AbstractDeck {
     public boolean isEmpty() {
         return this.cards.isEmpty();
     }
+
+    public void shuffleExcept(Card card) {
+    }
 }
