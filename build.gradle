@@ -8,10 +8,7 @@ plugins {
 }
 
 repositories {
-    mavenLocal()
-    maven {
-        url = uri('http://repo.maven.apache.org/maven2')
-    }
+    mavenCentral()
 }
 
 dependencies {
@@ -19,6 +16,7 @@ dependencies {
     implementation 'org.projectlombok:lombok:1.18.24'
     implementation 'ch.qos.logback:logback-classic:1.2.11'
     testImplementation 'org.junit.jupiter:junit-jupiter:5.9.0'
+    annotationProcessor('org.projectlombok:lombok:1.18.24')
 }
 
 group = 'idv.lance'

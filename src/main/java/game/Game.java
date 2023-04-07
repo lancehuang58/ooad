@@ -1,28 +1,28 @@
 package game;
 
+import card.Card;
+import player.AiPlayer;
+import player.Player;
+import deck.Deck;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public interface Game {
+public abstract class Game<T extends Card> {
 
-    default List<Player> initPlayers(int size) {
-        List<Player> players = new ArrayList<>();
+    List<Player<T>> players;
+
+    public void initPlayers(int size) {
+        this.players = new ArrayList<>(size);
         for (int i = 0; i < size; i++) {
-            players.add(new AIPlayer());
-        }
-        return players;
-    }
-
-    Player contest(List<Player> players);
-
-    default void playerDrawCard(List<Player> players, AbstractDeck deck, int times) {
-        for (int i = 0; i < players.size(); i++) {
-            for (int j = 0; j < times; j++) {
-                Player player = players.get(i);
-                player.addCard(deck.drawCard());
-            }
+            players.add(new AiPlayer<>());
         }
     }
 
-    AbstractDeck createDeck();
+    public abstract Deck<T> createDeck();
+
+    public abstract void dispatchCards();
+
+    public abstract Player<T> contest();
+
 }
