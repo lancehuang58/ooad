@@ -24,8 +24,42 @@ public class Uno extends Game<UnoCard> {
 
     @Override
     public Player<UnoCard> contest() {
-        return null;
+        Player<UnoCard> winner = null;
+        UnoCard currentCard = deck.drawCard();
+
+        for (Player<UnoCard> player : players) {
+            currentCard = compareAndReplace(currentCard, player);
+            if (player.getHand().isEmpty()) {
+                winner = player;
+                break;
+            }
+        }
+
+        return winner;
     }
 
+    private UnoCard compareAndReplace(UnoCard currentCard, Player<UnoCard> player) {
+        UnoCard playerCard = player.showCard();
+        boolean matchResult = match(playerCard, currentCard);
+        if (matchResult) {
+            return playerCard;
+        } else {
+            player.addCard(playerCard);
 
+            if (deck.isEmpty()) {
+                deck.shuffleExcept(currentCard);
+            }
+
+            player.addCard(deck.drawCard());
+            return currentCard;
+        }
+    }
+
+    private boolean match(UnoCard playerCard, UnoCard currentCard) {
+        if (playerCard.getColor() == currentCard.getColor() ||
+                playerCard.getNumber() == currentCard.getNumber()) {
+            return true;
+        }
+        return false;
+    }
 }

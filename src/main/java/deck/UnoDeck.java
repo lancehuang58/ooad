@@ -22,4 +22,7 @@ public class UnoDeck extends Deck<UnoCard> {
         }
         return this;
     }
+
+    public void shuffleExcept(UnoCard currentCard) {
+    }
 }
