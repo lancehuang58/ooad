@@ -11,7 +11,7 @@ public class Main {
 
         showdown();
 
-//        unoGame();
+        unoGame();
     }
 
     private static void unoGame() {
