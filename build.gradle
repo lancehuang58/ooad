@@ -12,6 +12,7 @@ repositories {
 }
 
 dependencies {
+    implementation 'com.scalified:tree:0.2.5'
     implementation 'org.assertj:assertj-core:3.23.1'
     implementation 'org.projectlombok:lombok:1.18.24'
     implementation 'ch.qos.logback:logback-classic:1.2.11'
