@@ -2,6 +2,7 @@ package game.handler;
 
 import game.Slot;
 import game.spirite.Hero;
+import game.spirite.Water;
 
 public class HeroWaterCollision extends CollisionHandler {
 
@@ -11,15 +12,27 @@ public class HeroWaterCollision extends CollisionHandler {
 
     @Override
     public boolean match(Slot src, Slot target) {
-        return src.getSprite().getName().equals("H")
+        boolean hw = src.getSprite().getName().equals("H")
                 && target.getSprite().getName().equals("W");
+        boolean wh = src.getSprite().getName().equals("W")
+                && target.getSprite().getName().equals("H");
+        return hw || wh;
     }
 
     @Override
     public void doHandle(Slot src, Slot target) {
-        Hero sprite = (Hero) src.getSprite();
-        sprite.setHp(sprite.getHp() + 10);
-        target.setSprite(sprite);
-        src.setSprite(null);
+        if (src.getSprite() instanceof Hero) {
+            Hero sprite = (Hero) src.getSprite();
+            sprite.setHp(sprite.getHp() + 10);
+            target.setSprite(sprite);
+            src.setSprite(null);
+        }
+
+        if (src.getSprite() instanceof Water) {
+            src.setSprite(null);
+            Hero hero = (Hero) target.getSprite();
+            hero.setHp(hero.getHp() + 10);
+        }
+
     }
 }

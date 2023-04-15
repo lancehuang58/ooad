@@ -42,7 +42,7 @@ public class World {
 
     public void run() {
         while (true) {
-            System.out.println("\n please input command: (e : quit/ p: print)");
+            System.out.println("\n please input command: (e : quit/ p: print/ m: move)");
             Scanner scanner = new Scanner(System.in);
             String input = scanner.next();
 
@@ -55,11 +55,13 @@ public class World {
                 break;
             }
 
-            System.out.println("input index of src: ");
-            String x = scanner.next();
-            System.out.println("input index of target: ");
-            String y = scanner.next();
-            move(parseInt(x), parseInt(y));
+            if (input.equals("m")) {
+                System.out.println("input index of src: ");
+                String x = scanner.next();
+                System.out.println("input index of target: ");
+                String y = scanner.next();
+                move(parseInt(x), parseInt(y));
+            }
         }
     }
 
