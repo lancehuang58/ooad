@@ -55,10 +55,10 @@ public class Big2 {
 
     public void start() throws IOException {
         int round = 1;
-        System.out.println("新的回合開始了");
         int i = findFirstPlayerIndex(players);
 
         while (!winnerExist()) {
+            System.out.println("新的回合開始了");
             i = i % 4;
             Player player = players.get(i);
             System.out.printf("輪到%s了\n", player.getName());

@@ -1,0 +1,24 @@
+@startuml
+
+class Video{
+String title
+String description
+int length
+
+String getName()
+String getDescription()
+int getLength()
+}
+
+class Channel{
+    String name
+    List<ChannelSubscriber> subscribers
+    addSubscriber(ChannelSubscriber s)
+    newVideoUploaded(Video video);
+}
+class ChannelSubscriber{
+    String name
+    String getName()
+}
+
+@enduml

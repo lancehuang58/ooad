@@ -10,4 +10,5 @@ pluginManagement {
 rootProject.name = 'ooad'
 include 'big2'
 include 'template-method'
+include 'youtube-channel'
 
