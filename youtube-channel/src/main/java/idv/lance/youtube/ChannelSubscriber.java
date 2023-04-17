@@ -3,20 +3,23 @@ package idv.lance.youtube;
 import lombok.Getter;
 
 @Getter
-public class ChannelSubscriber {
+public abstract class ChannelSubscriber implements Observer<Video> {
 
     String name;
-
 
     public ChannelSubscriber(String name) {
         this.name = name;
     }
 
-    public void subscribe(Channel channel) {
-        channel.addSubscriber(this);
+    @Override
+    public void subscribe(Subject<Video> subject) {
+        System.out.printf("%s 訂閱了 %s\n", getName(), subject.getName());
+        subject.addObserver(this);
     }
 
-    public void accept(Video video) {
-        System.out.printf("subscriber %s, video %s\n", name , video);
+    public void unSubscribe(Subject<Video> subject) {
+        System.out.printf("%s 解除訂閱了 %s\n", getName(), subject.getName());
+        subject.removeObserver(this);
     }
+
 }

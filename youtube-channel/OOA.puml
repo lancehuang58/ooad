@@ -1,5 +1,9 @@
 @startuml
 
+class client{
+
+}
+
 class Video{
 String title
 String description
@@ -14,11 +18,15 @@ class Channel{
     String name
     List<ChannelSubscriber> subscribers
     addSubscriber(ChannelSubscriber s)
-    newVideoUploaded(Video video);
+    upload(Video video);
 }
 class ChannelSubscriber{
     String name
     String getName()
 }
-
+client ..> Video:create
+client ..> ChannelSubscriber: create
+client ..> Channel: create
+Channel *..> ChannelSubscriber
+ChannelSubscriber ..> Video
 @enduml
