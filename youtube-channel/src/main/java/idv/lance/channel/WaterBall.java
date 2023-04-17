@@ -1,4 +1,4 @@
-package idv.lance.youtube;
+package idv.lance.channel;
 
 public class WaterBall extends ChannelSubscriber {
     public WaterBall(String name) {

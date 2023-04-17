@@ -1,4 +1,4 @@
-package idv.lance.youtube;
+package idv.lance.channel;
 
 public interface Subject<T> {
     void addObserver(Observer<T> observer);

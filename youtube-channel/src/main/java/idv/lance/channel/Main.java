@@ -1,4 +1,4 @@
-package idv.lance.youtube;
+package idv.lance.channel;
 
 public class Main {
     public static void main(String[] args) {

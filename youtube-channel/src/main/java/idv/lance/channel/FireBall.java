@@ -1,4 +1,4 @@
-package idv.lance.youtube;
+package idv.lance.channel;
 
 public class FireBall extends ChannelSubscriber {
     public FireBall(String name) {

@@ -1,4 +1,4 @@
-package idv.lance.youtube;
+package idv.lance.channel;
 
 public interface Observer<T> {
     void notify(T t);
