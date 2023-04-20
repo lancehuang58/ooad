@@ -1,6 +1,7 @@
 package waterball.player;
 
 import lombok.Getter;
+import waterball.card.CardPattern;
 import waterball.card.Card;
 
 import java.util.Collections;
@@ -32,7 +33,12 @@ public abstract class Player {
         System.out.println();
     }
 
-    public Card deal() {
-        return this.handCard.remove(0);
+    public CardPattern deal(int[] input) {
+        CardPattern cardPattern = new CardPattern();
+        for (int i = 0; i < input.length; i++) {
+            cardPattern.add(this.handCard.get(i));
+        }
+        handCard.removeAll(cardPattern);
+        return cardPattern;
     }
 }

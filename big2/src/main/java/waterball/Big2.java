@@ -1,9 +1,7 @@
 package waterball;
 
-import waterball.card.Card;
-import waterball.card.CardParser;
-import waterball.card.Deck;
-import waterball.card.Suit;
+import org.apache.commons.lang3.StringUtils;
+import waterball.card.*;
 import waterball.player.AiPlayer;
 import waterball.player.HandCard;
 import waterball.player.Player;
@@ -14,6 +12,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -56,18 +55,30 @@ public class Big2 {
     public void start() throws IOException {
         int round = 1;
         int i = findFirstPlayerIndex(players);
-
+        CardPattern topPlay = null;
         while (!winnerExist()) {
             System.out.println("新的回合開始了");
             i = i % 4;
             Player player = players.get(i);
             System.out.printf("輪到%s了\n", player.getName());
             player.printCards();
-//            String handCard = reader.readLine();
-//            System.out.printf("%s\n 輸入 %s\n", player.getName(), handCard);
-            Card card = player.deal();
-            i++;
+            String input = reader.readLine();
+            if (StringUtils.isNotBlank(input)) {
+                int[] inputValue = parseInputValues(input);
+                System.out.printf("%s 輸入 %s\n", player.getName(), input);
+                topPlay = player.deal(inputValue);
+                System.out.println("card pattern "+topPlay);
+                i++;
+            } else {
+                break;
+            }
+
         }
+    }
+
+    private int[] parseInputValues(String input) {
+        return Arrays.stream(input.split(" "))
+                .map(Integer::parseInt).mapToInt(i -> i).toArray();
     }
 
     private boolean winnerExist() {
