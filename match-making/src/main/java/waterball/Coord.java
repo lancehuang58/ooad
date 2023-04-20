@@ -1,7 +1,6 @@
 package waterball;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
