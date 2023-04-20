@@ -8,8 +8,9 @@ public class HabitBaseStrategy implements MatchStrategy {
 
     @Override
     public List<Individual> match(List<Individual> others, Individual i) {
+        Comparator<Individual> comparing = Comparator.<Individual, Integer>comparing(individual -> individual.habitDiffCount(i)).reversed();
         return others.stream()
-                .sorted(Comparator.comparing(individual-> individual.habitDiffCount(i)))
+                .sorted(comparing)
                 .collect(Collectors.toList());
     }
 }
