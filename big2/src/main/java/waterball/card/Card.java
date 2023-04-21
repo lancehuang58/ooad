@@ -3,7 +3,6 @@ package waterball.card;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.ToString;
 import org.apache.commons.lang3.EnumUtils;
 
 import java.util.Comparator;

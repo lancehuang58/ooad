@@ -32,8 +32,8 @@ public class Showdown {
 
     private void playerDrawCards() {
         for (int i = 0; i < 13; i++) {
-            for (int y = 0; y < players.size(); y++) {
-                players.get(y).addCard(deck.drawCard());
+            for (Player player : players) {
+                player.addCard(deck.drawCard());
             }
         }
     }
@@ -43,8 +43,7 @@ public class Showdown {
         for (int i = 0; i < 13; i++) {
             Card winnerCard = null;
             Player winnerPlayer = null;
-            for (int y = 0; y < players.size(); y++) {
-                Player currentPlayer = players.get(y);
+            for (Player currentPlayer : players) {
                 Card currentCard = currentPlayer.showCard();
                 if (winnerCard != null) {
                     winnerCard = winnerCard.compareTo(currentCard) > 0 ? winnerCard : currentCard;

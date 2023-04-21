@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Deck {
 
-    private List<Card> cards;
+    private final List<Card> cards;
 
     public Deck() {
         cards = new ArrayList<>(52);
@@ -18,7 +18,6 @@ public class Deck {
     }
 
     public Card drawCard() {
-        //TODO:: get one card in shuffled card collection
         return null;
     }
 

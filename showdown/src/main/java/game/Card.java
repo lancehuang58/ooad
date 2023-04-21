@@ -4,8 +4,8 @@ import java.util.Comparator;
 
 public class Card implements Comparable<Card> {
 
-    private Rank rank;
-    private Suit suit;
+    private final Rank rank;
+    private final Suit suit;
 
     public Card(Rank rank, Suit suit) {
         this.rank = rank;
