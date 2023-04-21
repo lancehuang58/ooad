@@ -1,28 +1,17 @@
 package game;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Deck {
 
-    private final List<Card> cards;
+    private List<Card> card;
 
-    public Deck() {
-        cards = new ArrayList<>(52);
-        for (int i = 0; i < 13; i++) {
-            for (int j = 0; j < 4; j++) {
-                //init card
-            }
-        }
+    public void shuffle() {
+
     }
 
     public Card drawCard() {
         return null;
-    }
-
-    public void shuffle() {
-        Collections.shuffle(cards);
     }
 
 }

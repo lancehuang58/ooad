@@ -1,65 +1,25 @@
 package game;
 
-import java.util.Collection;
-
 public abstract class Player {
 
+	private int point;
 
-    protected Collection<Card> cards;
+	private boolean exchangeUsed;
 
-    protected Card currentCard;
+	private HandCard handCard;
 
-    protected boolean exchangeCardUsed;
+	public abstract void naming();
 
-    protected Player exchangeCardPlayer;
+	public Card showCard() {
+		return null;
+	}
 
-    protected int exchangeCardCount;
+	public void gainPoint() {
 
-    private int score;
+	}
 
-    private String name;
+	public void addCard(Card card) {
 
-    protected void setName(String name) {
-        this.name = name;
-    }
+	}
 
-    public void addCard(Card card) {
-        this.cards.add(card);
-    }
-
-    protected abstract Card showCard();
-
-    public abstract boolean exchangeCard();
-
-    protected abstract Card selectCard();
-
-    protected abstract String naming();
-
-    public void scoreIncremental() {
-        this.score++;
-    }
-
-
-    protected void doExchange(Player src, Player target) {
-        Card tmp = src.showCard();
-        src.setCurrentCard(target.showCard());
-        target.setCurrentCard(tmp);
-        this.exchangeCardPlayer = target;
-        this.exchangeCardCount = 1;
-    }
-
-    private void setCurrentCard(Card card) {
-        this.currentCard = card;
-    }
-
-    public abstract Player selectTargetPlayer();
-
-
-    public String getName() {
-        return this.name;
-    }
-
-    public int getScore() {
-        return this.score;
-    }
 }

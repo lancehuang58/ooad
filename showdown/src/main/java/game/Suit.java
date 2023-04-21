@@ -1,5 +1,9 @@
 package game;
 
+
 public enum Suit {
-    C, D, H, S
+
+    C, D, S, H;
+
+
 }
