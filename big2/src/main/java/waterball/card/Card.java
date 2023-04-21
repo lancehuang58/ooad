@@ -8,13 +8,18 @@ import org.apache.commons.lang3.EnumUtils;
 
 import java.util.Comparator;
 
-@ToString
+
 @Getter
 @AllArgsConstructor(staticName = "of")
 @EqualsAndHashCode(of = {"rank", "suit"})
 public class Card implements Comparable<Card> {
     private Rank rank;
     private Suit suit;
+
+    @Override
+    public String toString() {
+        return String.format("%s[%d]", suit.name(), rank.getValue());
+    }
 
     static Comparator<Card> comparator = Comparator
             .comparing(Card::getRank)
