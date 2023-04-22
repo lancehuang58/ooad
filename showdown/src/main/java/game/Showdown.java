@@ -7,6 +7,7 @@ import game.player.Player;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
@@ -20,7 +21,7 @@ public class Showdown {
         initPlayer();
         initDeck();
         dispatchCards();
-        rounds(13);
+        rounds();
         showWinner();
     }
 
@@ -45,8 +46,8 @@ public class Showdown {
         }
     }
 
-    private void rounds(int i) {
-        for (int j = 0; j < i; j++) {
+    private void rounds() {
+        for (int j = 0; j < 13; j++) {
             Card winCard = null;
             Player winner = null;
             for (Player player : players) {
@@ -55,13 +56,15 @@ public class Showdown {
                 winCard = isNull(winCard) ? card : winCard.compare(card) > 0 ? winCard : card;
                 winner = isNull(winner) ? player : winCard.compare(card) > 0 ? winner : player;
             }
-            winner.gainPoint();
+            if (winner != null) {
+                winner.gainPoint();
+            }
         }
     }
 
     private void showWinner() {
-        Player player = players.stream().max(Comparator.comparing(Player::getPoint)).get();
-        System.out.printf("winner is %s , point is %d\n", player.getName(), player.getPoint());
+        Optional<Player> winnerPlayerOpt = players.stream().max(Comparator.comparing(Player::getPoint));
+        winnerPlayerOpt.ifPresent(player -> System.out.printf("winner is %s , point is %d\n", player.getName(), player.getPoint()));
     }
 
 }

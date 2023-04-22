@@ -13,16 +13,12 @@ public class AiPlayer extends Player {
     @Override
     protected Player decideExchangePlayer(List<Player> players) {
         int i = ThreadLocalRandom.current().nextInt(players.size());
-        Player targetPlayer = players.get(i);
-//        System.out.println("target player " + targetPlayer.getName());
-        return targetPlayer;
+        return players.get(i);
     }
 
     @Override
     protected boolean decideUseExchange() {
-        boolean b = ThreadLocalRandom.current().nextBoolean();
-//        System.out.println("decide use exchange " + b);
-        return b;
+        return ThreadLocalRandom.current().nextBoolean();
     }
 
     @Override

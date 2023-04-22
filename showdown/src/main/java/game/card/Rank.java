@@ -10,7 +10,7 @@ public enum Rank {
     _7(7), _8(8), _9(9), _10(10), J(11),
     Q(12), K(13), A(14);
 
-    private int value;
+    private final int value;
 
     public static Rank fromValue(int v) {
         EnumSet<Rank> ranks = EnumSet.allOf(Rank.class);
