@@ -1,7 +1,10 @@
 package game;
 
-public class HandCard {
+import game.card.Card;
 
-	private Card card;
+import java.util.ArrayList;
+
+public class HandCard extends ArrayList<Card> {
+
 
 }
