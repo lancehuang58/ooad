@@ -51,7 +51,7 @@ public class Showdown {
             Card winCard = null;
             Player winner = null;
             for (Player player : players) {
-                List<Player> others = players.stream().filter(player1 -> player1.equals(player)).collect(Collectors.toList());
+                List<Player> others = getPlayersExcept(player);
                 Card card = player.takeTurn(others);
                 winCard = isNull(winCard) ? card : winCard.compare(card) > 0 ? winCard : card;
                 winner = isNull(winner) ? player : winCard.compare(card) > 0 ? winner : player;
@@ -60,6 +60,10 @@ public class Showdown {
                 winner.gainPoint();
             }
         }
+    }
+
+    private List<Player> getPlayersExcept(Player player) {
+        return players.stream().filter(p -> p.equals(player)).collect(Collectors.toList());
     }
 
     private void showWinner() {
