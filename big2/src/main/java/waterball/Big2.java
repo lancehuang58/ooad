@@ -5,7 +5,6 @@ import waterball.card.*;
 import waterball.player.AiPlayer;
 import waterball.player.HandCard;
 import waterball.player.Player;
-import waterball.util.TestFileHelper;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -15,6 +14,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+
+import static org.apache.commons.lang3.Validate.notNull;
 
 public class Big2 {
 
@@ -48,8 +49,8 @@ public class Big2 {
     }
 
     private void initDeck() throws IOException {
-        String input = reader.readLine();
-        deck = new CardParser().parse(input);
+        String firstLineInput = reader.readLine();
+        deck = new CardParser().parse(firstLineInput);
     }
 
     public void start() throws IOException {
@@ -67,7 +68,7 @@ public class Big2 {
                 int[] inputValue = parseInputValues(input);
                 System.out.printf("%s 輸入 %s\n", player.getName(), input);
                 topPlay = player.deal(inputValue);
-                System.out.println("card pattern "+topPlay);
+                System.out.println("card pattern " + topPlay);
                 i++;
             } else {
                 break;
@@ -100,8 +101,8 @@ public class Big2 {
     }
 
     private void initFileReader() {
-        InputStream inputStream = TestFileHelper.class.getResourceAsStream("/test.data");
-        assert inputStream != null;
-        reader = new BufferedReader(new InputStreamReader(inputStream));
+        InputStream input = getClass().getResourceAsStream("/test.data");
+        notNull(input);
+        reader = new BufferedReader(new InputStreamReader(input));
     }
 }

@@ -2,14 +2,14 @@ package waterball.player;
 
 public class AiPlayer extends Player {
 
-    private String name1;
+    private final String name;
 
-    public AiPlayer(String name1) {
-        this.name1 = name1;
+    public AiPlayer(String name) {
+        this.name = name;
     }
 
     @Override
     public String getName() {
-        return name1;
+        return name;
     }
 }

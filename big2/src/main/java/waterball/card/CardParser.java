@@ -10,11 +10,11 @@ public class CardParser {
     public Deck parse(String input) {
         String[] cardsArray = input.split(" ");
         return new Deck(Arrays.stream(cardsArray)
-                .map(this::parseEntry)
+                .map(this::parseInputCard)
                 .collect(Collectors.toList()));
     }
 
-    private Card parseEntry(String s) {
+    private Card parseInputCard(String s) {
         char c = s.charAt(0);
         Suit suit = EnumUtils.getEnum(Suit.class, String.valueOf(c));
         String rankInfo = s.substring(s.indexOf("[") + 1, s.indexOf("]"));
