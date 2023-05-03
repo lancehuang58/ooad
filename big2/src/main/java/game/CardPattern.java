@@ -3,13 +3,13 @@ package game;
 
 import game.card.Card;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
-import java.util.List;
+import java.util.ArrayList;
+
 @Data
-public class CardPattern {
+@EqualsAndHashCode(callSuper = false)
+public class CardPattern extends ArrayList<Card> {
 
-	private CardPatternType cardPatternType;
-
-	private List<Card> cards;
-
+    private CardPatternType cardPatternType;
 }

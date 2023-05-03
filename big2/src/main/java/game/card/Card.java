@@ -17,7 +17,7 @@ public class Card implements Comparable<Card> {
 
     @Override
     public String toString() {
-        return String.format("%s[%d]", suit.name(), rank.getValue());
+        return String.format("%s[%s]", suit.name(), rank.getText());
     }
 
     static Comparator<Card> comparator = Comparator
