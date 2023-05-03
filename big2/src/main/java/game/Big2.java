@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Objects;
 
 @Slf4j
@@ -22,7 +23,9 @@ public class Big2 {
     }
 
     public void play() {
+        log.info("新的回合開始了。");
         topPlayer = firstPlayer();
+        log.info("輪到{}了", topPlayer.getName());
 
     }
 
@@ -36,7 +39,7 @@ public class Big2 {
                 return player;
             }
         }
-        return null;
+        throw new NoSuchElementException("can't find player with C3");
     }
 
     private void clearTopPlay() {
