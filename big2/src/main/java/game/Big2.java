@@ -39,10 +39,6 @@ public class Big2 {
         return null;
     }
 
-    private void takeTurns() {
-
-    }
-
     private void clearTopPlay() {
         this.topPlay = null;
     }

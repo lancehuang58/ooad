@@ -1,5 +1,7 @@
 package game;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.io.IOException;
 
 public class Client {
@@ -23,6 +25,9 @@ public class Client {
     }
 
     private void playGame() throws IOException {
-        game.nextInput(parser.nextLine());
+        String input = parser.nextLine();
+        while (!StringUtils.isBlank(input)) {
+            game.nextInput(input);
+        }
     }
 }
