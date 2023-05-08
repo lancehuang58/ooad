@@ -1,6 +1,7 @@
 package game;
 
 import game.card.Card;
+import game.card.CardPatternParser;
 import game.card.Suit;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -24,9 +25,6 @@ public class Player {
         this.handCard = new HandCards();
     }
 
-    public CardPattern play() {
-        return null;
-    }
 
     public void addCard(Card card) {
         this.handCard.add(card);
@@ -36,22 +34,22 @@ public class Player {
         Collections.sort(handCard);
     }
 
-    public void printCards() {
-        log.info("{} - {}", name, handCard.stream().map(Card::toString).collect(joining("\t")));
+    public void printHandCards() {
+        System.out.printf("%s\n", handCard.stream().map(Card::toString).collect(joining(" ")));
     }
 
-    public CardPattern deal(int[] input) {
-        CardPattern cardPattern = new CardPattern();
-        for (int i = 0; i < input.length; i++) {
-            cardPattern.add(this.handCard.get(i));
-        }
-        handCard.removeAll(cardPattern);
-        return cardPattern;
+    public CardPattern deal(String input) {
+        CardPatternParser patternParser = new CardPatternParser();
+        return patternParser.parse(input, handCard);
     }
 
     public boolean haveC3() {
         return handCard.stream()
                 .anyMatch(card -> card.getRank().getValue() == 3
-                && card.getSuit().equals(Suit.C));
+                        && card.getSuit().equals(Suit.C));
+    }
+
+    public boolean isWinner() {
+        return handCard.isEmpty();
     }
 }

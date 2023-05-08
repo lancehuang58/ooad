@@ -1,5 +1,5 @@
 package game;
 
-public class CardPatternType {
-
+public enum CardPatternType {
+    SINGLE;
 }

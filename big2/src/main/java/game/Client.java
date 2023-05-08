@@ -24,10 +24,12 @@ public class Client {
         client.playGame();
     }
 
+
     private void playGame() throws IOException {
         String input = parser.nextLine();
         while (!StringUtils.isBlank(input)) {
             game.nextInput(input);
+            input = parser.nextLine();
         }
     }
 }
