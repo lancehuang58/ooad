@@ -3,6 +3,7 @@ package game;
 import game.card.Card;
 import game.card.CardPatternParser;
 import game.card.Suit;
+import game.card.pattern.CardPattern;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
@@ -39,8 +40,7 @@ public class Player {
     }
 
     public CardPattern deal(String input) {
-        CardPatternParser patternParser = new CardPatternParser();
-        return patternParser.parse(input, handCard);
+        return new CardPatternParser().parse(input, handCard);
     }
 
     public boolean haveC3() {

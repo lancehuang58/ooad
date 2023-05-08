@@ -1,11 +1,13 @@
 package game;
 
+import game.card.comparator.FullHouseComparator;
+import game.card.comparator.SingleComparator;
+import game.card.comparator.TwoPairComparator;
+import game.card.pattern.CardPattern;
+import game.card.pattern.CardPatternType;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Objects;
+import java.util.*;
 
 @Slf4j
 public class Big2 {
@@ -21,8 +23,15 @@ public class Big2 {
     private int currentIndex = -1;
     private int firstIndex = -1;
 
+    private final Dictionary<CardPatternType, Comparator<CardPattern>> PATTERN_COMPARATORS_LOOKUP = new Hashtable<>();
+
+
     public Big2() {
         this.players = new ArrayList<>();
+        PATTERN_COMPARATORS_LOOKUP.put(CardPatternType.SINGLE, new SingleComparator());
+        PATTERN_COMPARATORS_LOOKUP.put(CardPatternType.TWO_PAIR, new TwoPairComparator());
+        PATTERN_COMPARATORS_LOOKUP.put(CardPatternType.STRAIGHT, new SingleComparator());
+        PATTERN_COMPARATORS_LOOKUP.put(CardPatternType.FULL_HOUSE, new FullHouseComparator());
     }
 
     public void initDeck(String input) {
@@ -43,7 +52,7 @@ public class Big2 {
     }
 
     public void nextInput(String input) {
-        if (gameNotStarted()) {
+        if (gameStart()) {
             topPlayer = firstPlayer();
             currentIndex = topPlayer.getIndex();
             firstIndex = topPlayer.getIndex();
@@ -53,21 +62,21 @@ public class Big2 {
         }
     }
 
-    private boolean gameNotStarted() {
+    private boolean gameStart() {
         return currentIndex == -1;
     }
 
     private void takeTurn(Player player, String input) {
-        if (firstIndex == currentIndex) {
+        if (isNewTurn()) {
             clearTopPlay();
             System.out.println("新的回合開始了");
-            if (input.equals("-1")) {
+            if (isPass(input)) {
                 System.out.println("你不能在新的回合中喊 PASS");
                 return;
             }
         }
 
-        if (input.equals("-1")) {
+        if (isPass(input)) {
             System.out.printf("玩家 %s PASS\n", player.getName());
             currentIndex = (currentIndex + 1) % 4;
             return;
@@ -78,11 +87,18 @@ public class Big2 {
         System.out.println(player.getName() + "　輸入 " + input);
         CardPattern pattern = player.deal(input);
 
+        if (pattern == null || (topPlay != null && pattern.getCardPatternType() != topPlay.getCardPatternType())) {
+            System.out.println("此牌型不合法，請再試一次");
+            return;
+        }
+
+        System.out.printf("玩家%s 打出了%s\n", player.getName(), pattern);
         if (topPlay == null) {
             topPlay = pattern;
             topPlayer = player;
         } else {
-            boolean compareResult = topPlay.compareTo(pattern) > 0;
+            Comparator<CardPattern> cardPatternComparator = PATTERN_COMPARATORS_LOOKUP.get(topPlay.getCardPatternType());
+            boolean compareResult = cardPatternComparator.compare(topPlay, pattern) > 0;
             topPlay = compareResult ? topPlay : pattern;
             topPlayer = compareResult ? topPlayer : player;
         }
@@ -93,6 +109,14 @@ public class Big2 {
         }
 
         currentIndex = (currentIndex + 1) % 4;
+    }
+
+    private boolean isNewTurn() {
+        return firstIndex == currentIndex;
+    }
+
+    private static boolean isPass(String input) {
+        return input.equals("-1");
     }
 
     public void addPlayer(String name) {

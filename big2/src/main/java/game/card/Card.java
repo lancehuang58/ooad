@@ -15,14 +15,16 @@ public class Card implements Comparable<Card> {
     private Rank rank;
     private Suit suit;
 
+    public static Comparator<Card> CARD_COMPARATOR =
+            Comparator
+                    .comparing(Card::getRank)
+                    .thenComparing(Card::getSuit);
+
     @Override
     public String toString() {
         return String.format("%s[%s]", suit.name(), rank.getText());
     }
 
-    static Comparator<Card> comparator = Comparator
-            .comparing(Card::getRank)
-            .thenComparing(Card::getSuit);
 
     public static Card of(String r, String s) {
         return new Card(Rank.fromValue(r), EnumUtils.getEnum(Suit.class, s));
@@ -30,6 +32,6 @@ public class Card implements Comparable<Card> {
 
     @Override
     public int compareTo(Card o) {
-        return comparator.compare(this, o);
+        return CARD_COMPARATOR.compare(this, o);
     }
 }

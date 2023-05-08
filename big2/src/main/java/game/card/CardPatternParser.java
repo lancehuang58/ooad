@@ -1,25 +1,30 @@
 package game.card;
 
-import game.CardPattern;
-import game.CardPatternType;
+import game.card.matcher.*;
+import game.card.pattern.*;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class CardPatternParser {
 
     public static final String CARD_SPLITTER = " ";
 
-    public CardPattern parse(String input, List<Card> cards) {
-        CardPattern cardPattern = null;
+    private final PatternMatcher matcher = new SingleMatcher(new TwoPairMatcher(new StraightMatcher(new FullHouseMatcher(null))));
+
+    public CardPattern parse(String input, List<Card> handCard) {
+
         String[] cardsIndexString = input.split(CARD_SPLITTER);
-        int[] cardsIndexes = Arrays.stream(cardsIndexString).mapToInt(Integer::parseInt).toArray();
-        if (cardsIndexes.length == 1) {
-            cardPattern = new CardPattern(CardPatternType.SINGLE);
-            for (int i = 0; i < cardsIndexes.length; i++) {
-                cardPattern.add(cards.remove(cardsIndexes[i]));
-            }
+        int[] cardsIndexes = Arrays.stream(cardsIndexString).filter(Objects::nonNull)
+                .mapToInt(Integer::parseInt).toArray();
+        List<Card> cards = new ArrayList<>();
+        for (int i = 0; i < cardsIndexes.length; i++) {
+            Card card = handCard.get(cardsIndexes[i]);
+            cards.add(card);
+            handCard.remove(card);
         }
-        return cardPattern;
+        return matcher.match(cards);
     }
 }
