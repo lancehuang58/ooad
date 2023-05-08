@@ -11,15 +11,10 @@ import java.util.*;
 
 @Slf4j
 public class Big2 {
-
     private CardPattern topPlay;
-
     private Player topPlayer;
-
     private final List<Player> players;
-
     private Deck deck;
-
     private int currentIndex = -1;
     private int firstIndex = -1;
 
@@ -69,30 +64,29 @@ public class Big2 {
     private void takeTurn(Player player, String input) {
         if (isNewTurn()) {
             clearTopPlay();
-            System.out.println("新的回合開始了");
+            log.info("新的回合開始了");
             if (isPass(input)) {
-                System.out.println("你不能在新的回合中喊 PASS");
+                log.info("你不能在新的回合中喊 PASS");
                 return;
             }
         }
 
         if (isPass(input)) {
-            System.out.printf("玩家 %s PASS\n", player.getName());
+            log.info("玩家 {} PASS", player.getName());
             currentIndex = (currentIndex + 1) % 4;
             return;
         }
 
-        System.out.println("輪到" + player.getName());
+        log.info("輪到{}", player.getName());
         player.printHandCards();
-        System.out.println(player.getName() + "　輸入 " + input);
         CardPattern pattern = player.deal(input);
 
         if (pattern == null || (topPlay != null && pattern.getCardPatternType() != topPlay.getCardPatternType())) {
-            System.out.println("此牌型不合法，請再試一次");
+            log.info("此牌型不合法，請再試一次");
             return;
         }
 
-        System.out.printf("玩家%s 打出了%s\n", player.getName(), pattern);
+        log.info("玩家{} 打出了{}", player.getName(), pattern);
         if (topPlay == null) {
             topPlay = pattern;
             topPlayer = player;
@@ -104,7 +98,7 @@ public class Big2 {
         }
 
         if (player.isWinner()) {
-            System.out.println("遊戲結束，遊戲的勝利者為 " + player.getName());
+            log.info("遊戲結束，遊戲的勝利者為 {}", player.getName());
             return;
         }
 

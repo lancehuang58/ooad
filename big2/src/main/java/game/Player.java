@@ -36,7 +36,7 @@ public class Player {
     }
 
     public void printHandCards() {
-        System.out.printf("%s\n", handCard.stream().map(Card::toString).collect(joining(" ")));
+        log.info("{}", handCard.stream().map(Card::toString).collect(joining(" ")));
     }
 
     public CardPattern deal(String input) {
