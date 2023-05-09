@@ -1,5 +1,8 @@
 package game.card;
 
 public enum Suit {
-    C, D, H, S
+  C,
+  D,
+  H,
+  S
 }

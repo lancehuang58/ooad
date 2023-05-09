@@ -1,12 +1,12 @@
 package game.card.pattern;
 
-
 import game.card.Card;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.stream.Collectors;
 
 @Data
@@ -14,24 +14,24 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public abstract class CardPattern extends ArrayList<Card> {
 
-    private CardPatternType cardPatternType;
+  private CardPatternType cardPatternType;
 
-    public Card getMaxOne() {
-        return this.stream().max(Card.CARD_COMPARATOR).orElse(null);
-    }
+  public Card getMaxOne() {
+    return this.stream().max(Card.CARD_COMPARATOR).orElse(null);
+  }
 
-    public Card getMaxOfThree() {
-        return this.stream().collect(Collectors.groupingBy(Card::getRank))
-                .values().stream()
-                .filter((cards -> cards.size() == 3))
-                .flatMap(Collection::stream)
-                .max(Card.CARD_COMPARATOR).orElse(null);
-    }
+  public Card getMaxOfThree() {
+    return this.stream().collect(Collectors.groupingBy(Card::getRank)).values().stream()
+        .filter((cards -> cards.size() == 3))
+        .flatMap(Collection::stream)
+        .max(Card.CARD_COMPARATOR)
+        .orElse(null);
+  }
 
-    public String toString() {
-        return String.format("%s %s", getName(), this.stream()
-                .map(Card::toString).collect(Collectors.joining(" ")));
-    }
+  public String toString() {
+    return String.format(
+        "%s %s", getName(), this.stream().map(Card::toString).collect(Collectors.joining(" ")));
+  }
 
-    public abstract String getName();
+  public abstract String getName();
 }

@@ -3,28 +3,27 @@ package game.card.matcher;
 import game.card.Card;
 import game.card.pattern.CardPattern;
 import game.card.pattern.FullHouse;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class FullHouseMatcher extends PatternMatcher {
-    @Override
-    protected boolean isMatch(List<Card> cards) {
-        return cards.size() == 5 && twoSuit(cards);
-    }
+  public FullHouseMatcher(PatternMatcher next) {
+    super(next);
+  }
 
-    private boolean twoSuit(List<Card> cards) {
-        return cards.stream().collect(Collectors.groupingBy(Card::getRank)).size() == 2;
-    }
+  @Override
+  protected boolean isMatch(List<Card> cards) {
+    return cards.size() == 5 && twoSuit(cards);
+  }
 
-    @Override
-    protected CardPattern buildPattern(List<Card> cards) {
-        FullHouse pattern = new FullHouse();
-        pattern.addAll(cards);
-        return pattern;
-    }
+  private boolean twoSuit(List<Card> cards) {
+    return cards.stream().collect(Collectors.groupingBy(Card::getRank)).size() == 2;
+  }
 
-    public FullHouseMatcher(PatternMatcher next) {
-        super(next);
-    }
+  @Override
+  protected CardPattern buildPattern(List<Card> cards) {
+    FullHouse pattern = new FullHouse();
+    pattern.addAll(cards);
+    return pattern;
+  }
 }

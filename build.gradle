@@ -1,0 +1,10 @@
+allprojects {
+    gradle.projectsEvaluated {
+        tasks.withType(JavaCompile)
+                .tap {
+                    configureEach {
+                        options.encoding = 'UTF-8'
+                    }
+                }
+    }
+}
