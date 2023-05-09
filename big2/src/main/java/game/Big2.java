@@ -14,7 +14,8 @@ import static java.util.Objects.nonNull;
 @Slf4j
 public class Big2 {
   private final List<Player> players;
-  private final Dictionary<CardPatternType, Comparator<CardPattern>> PATTERN_COMPARATORS_LOOKUP = new Hashtable<>();
+  private final Dictionary<CardPatternType, Comparator<CardPattern>> PATTERN_COMPARATORS_LOOKUP =
+      new Hashtable<>();
   private CardPattern topPlay;
   private Player topPlayer;
   private Deck deck;
@@ -49,8 +50,6 @@ public class Big2 {
   private void clearTopPlay() {
     this.topPlay = null;
   }
-
-
 
   public void takeTurn(String input) {
 
@@ -93,9 +92,9 @@ public class Big2 {
       topPlay = pattern;
       topPlayer = currentPlayer;
     } else {
-      Comparator<CardPattern> cardPatternComparator =
+      Comparator<CardPattern> comparator =
           PATTERN_COMPARATORS_LOOKUP.get(topPlay.getCardPatternType());
-      boolean compareResult = cardPatternComparator.compare(topPlay, pattern) > 0;
+      boolean compareResult = comparator.compare(topPlay, pattern) > 0;
       topPlay = compareResult ? topPlay : pattern;
       topPlayer = compareResult ? topPlayer : currentPlayer;
     }
