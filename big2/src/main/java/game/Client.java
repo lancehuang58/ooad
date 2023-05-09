@@ -26,7 +26,7 @@ public class Client {
     initGame();
     String input = parser.nextLine();
     while (!StringUtils.isBlank(input)) {
-      game.nextInput(input);
+      game.takeTurn(input);
       input = parser.nextLine();
     }
   }

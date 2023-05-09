@@ -8,6 +8,9 @@ import game.card.pattern.CardPatternType;
 import java.util.*;
 import lombok.extern.slf4j.Slf4j;
 
+import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
+
 @Slf4j
 public class Big2 {
   private final List<Player> players;
@@ -47,13 +50,11 @@ public class Big2 {
     this.topPlay = null;
   }
 
-  public void nextInput(String input) {
-      takeTurn(input);
-  }
 
-  private void takeTurn(String input) {
 
-    if (topPlayer == null) {
+  public void takeTurn(String input) {
+
+    if (isNull(topPlayer)) {
       topPlayer = firstPlayer();
       currentIndex = topPlayer.getIndex();
       firstIndex = topPlayer.getIndex();
@@ -68,41 +69,46 @@ public class Big2 {
       }
     }
 
-    Player player = players.get(currentIndex);
+    Player currentPlayer = players.get(currentIndex);
 
     if (isPass(input)) {
-      log.info("玩家 {} PASS", player);
-      currentIndex = (currentIndex + 1) % 4;
+      log.info("玩家 {} PASS", currentPlayer);
+      moveToNextPlayer();
       return;
     }
 
-    log.info("輪到{}", player.getName());
-    player.printHandCards();
-    CardPattern pattern = player.deal(input);
+    log.info("輪到{}", currentPlayer.getName());
+    currentPlayer.printHandCards();
+    CardPattern pattern = currentPlayer.deal(input);
 
-    if (pattern == null
-        || (topPlay != null && pattern.getCardPatternType() != topPlay.getCardPatternType())) {
+    if (isNull(pattern)
+        || (nonNull(topPlay) && pattern.getCardPatternType() != topPlay.getCardPatternType())) {
       log.info("此牌型不合法，請再試一次");
       return;
     }
 
-    log.info("玩家{} 打出了{}", player.getName(), pattern);
-    if (topPlay == null) {
+    log.info("玩家{} 打出了{}", currentPlayer.getName(), pattern);
+
+    if (isNull(topPlay)) {
       topPlay = pattern;
-      topPlayer = player;
+      topPlayer = currentPlayer;
     } else {
       Comparator<CardPattern> cardPatternComparator =
           PATTERN_COMPARATORS_LOOKUP.get(topPlay.getCardPatternType());
       boolean compareResult = cardPatternComparator.compare(topPlay, pattern) > 0;
       topPlay = compareResult ? topPlay : pattern;
-      topPlayer = compareResult ? topPlayer : player;
+      topPlayer = compareResult ? topPlayer : currentPlayer;
     }
 
-    if (player.isWinner()) {
-      log.info("遊戲結束，遊戲的勝利者為 {}", player.getName());
+    if (currentPlayer.isWinner()) {
+      log.info("遊戲結束，遊戲的勝利者為 {}", currentPlayer.getName());
       return;
     }
 
+    moveToNextPlayer();
+  }
+
+  private void moveToNextPlayer() {
     currentIndex = (currentIndex + 1) % 4;
   }
 
