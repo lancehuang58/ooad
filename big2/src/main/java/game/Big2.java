@@ -11,8 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class Big2 {
   private final List<Player> players;
-  private final Dictionary<CardPatternType, Comparator<CardPattern>> PATTERN_COMPARATORS_LOOKUP =
-      new Hashtable<>();
+  private final Dictionary<CardPatternType, Comparator<CardPattern>> PATTERN_COMPARATORS_LOOKUP = new Hashtable<>();
   private CardPattern topPlay;
   private Player topPlayer;
   private Deck deck;
@@ -20,7 +19,7 @@ public class Big2 {
   private int firstIndex = -1;
 
   public Big2() {
-    this.players = new ArrayList<>();
+    players = new ArrayList<>();
     PATTERN_COMPARATORS_LOOKUP.put(CardPatternType.SINGLE, new SingleComparator());
     PATTERN_COMPARATORS_LOOKUP.put(CardPatternType.TWO_PAIR, new TwoPairComparator());
     PATTERN_COMPARATORS_LOOKUP.put(CardPatternType.STRAIGHT, new SingleComparator());
@@ -49,21 +48,17 @@ public class Big2 {
   }
 
   public void nextInput(String input) {
-    if (gameStart()) {
+      takeTurn(input);
+  }
+
+  private void takeTurn(String input) {
+
+    if (topPlayer == null) {
       topPlayer = firstPlayer();
       currentIndex = topPlayer.getIndex();
       firstIndex = topPlayer.getIndex();
-      takeTurn(topPlayer, input);
-    } else {
-      takeTurn(players.get(currentIndex), input);
     }
-  }
 
-  private boolean gameStart() {
-    return currentIndex == -1;
-  }
-
-  private void takeTurn(Player player, String input) {
     if (isNewTurn()) {
       clearTopPlay();
       log.info("新的回合開始了");
@@ -73,8 +68,10 @@ public class Big2 {
       }
     }
 
+    Player player = players.get(currentIndex);
+
     if (isPass(input)) {
-      log.info("玩家 {} PASS", player.getName());
+      log.info("玩家 {} PASS", player);
       currentIndex = (currentIndex + 1) % 4;
       return;
     }
