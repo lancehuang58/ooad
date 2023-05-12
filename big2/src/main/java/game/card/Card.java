@@ -4,7 +4,6 @@ import java.util.Comparator;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import org.apache.commons.lang3.EnumUtils;
 
 @Getter
 @AllArgsConstructor(staticName = "of")
