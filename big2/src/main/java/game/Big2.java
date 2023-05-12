@@ -13,7 +13,7 @@ import static java.util.Objects.*;
 @Slf4j
 public class Big2 {
   private final List<Player> players;
-  private final Map<CardPatternType, Comparator<CardPattern>> patternTypeComparatorMap =
+  private final EnumMap<CardPatternType, Comparator<CardPattern>> patternComparatorLookUp =
       new EnumMap<>(CardPatternType.class);
   private CardPattern topPlay;
   private Player topPlayer;
@@ -23,10 +23,10 @@ public class Big2 {
 
   public Big2() {
     players = new ArrayList<>();
-    patternTypeComparatorMap.put(CardPatternType.SINGLE, new SingleComparator());
-    patternTypeComparatorMap.put(CardPatternType.TWO_PAIR, new TwoPairComparator());
-    patternTypeComparatorMap.put(CardPatternType.STRAIGHT, new SingleComparator());
-    patternTypeComparatorMap.put(CardPatternType.FULL_HOUSE, new FullHouseComparator());
+    patternComparatorLookUp.put(CardPatternType.SINGLE, new SingleComparator());
+    patternComparatorLookUp.put(CardPatternType.TWO_PAIR, new TwoPairComparator());
+    patternComparatorLookUp.put(CardPatternType.STRAIGHT, new SingleComparator());
+    patternComparatorLookUp.put(CardPatternType.FULL_HOUSE, new FullHouseComparator());
   }
 
   private static boolean isPass(String input) {
@@ -92,7 +92,7 @@ public class Big2 {
       topPlayer = currentPlayer;
     } else {
       Comparator<CardPattern> comparator =
-          patternTypeComparatorMap.get(topPlay.getCardPatternType());
+          patternComparatorLookUp.get(topPlay.getCardPatternType());
       requireNonNull(comparator);
 
       boolean compareResult = comparator.compare(topPlay, pattern) > 0;
