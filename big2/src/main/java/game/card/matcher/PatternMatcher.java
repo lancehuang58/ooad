@@ -2,13 +2,16 @@ package game.card.matcher;
 
 import game.card.Card;
 import game.card.pattern.CardPattern;
+import game.card.pattern.Null;
 import java.util.List;
 
 public abstract class PatternMatcher {
 
+  private static final Null nullPattern = new Null();
+
   private final PatternMatcher next;
 
-  public PatternMatcher(PatternMatcher next) {
+  protected PatternMatcher(PatternMatcher next) {
     this.next = next;
   }
 
@@ -24,6 +27,6 @@ public abstract class PatternMatcher {
         return next.match(input);
       }
     }
-    return null;
+    return nullPattern;
   }
 }

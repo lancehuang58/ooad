@@ -3,14 +3,14 @@ package game;
 import game.card.Card;
 import game.card.Rank;
 import game.card.Suit;
+import java.util.ArrayDeque;
 import java.util.Arrays;
-import java.util.Stack;
 import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.EnumUtils;
 
 @Slf4j
-public class Deck extends Stack<Card> {
+public class Deck extends ArrayDeque<Card> {
 
   public Deck(String inputCardString) {
     log.info("input data for deck {}", inputCardString);

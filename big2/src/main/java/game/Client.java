@@ -5,7 +5,9 @@ import org.apache.commons.lang3.StringUtils;
 
 public class Client {
 
-  InputDataParser parser = new InputDataParser(Constant.FILE_PATH);
+  public static final String FILE_PATH = "/test.data";
+
+  InputDataParser parser = new InputDataParser(FILE_PATH);
   Big2 game = new Big2();
 
   public static void main(String[] args) throws IOException {

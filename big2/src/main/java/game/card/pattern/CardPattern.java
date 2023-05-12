@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public abstract class CardPattern extends ArrayList<Card> {
 
-  private CardPatternType cardPatternType;
+    private CardPatternType cardPatternType;
 
   public Card getMaxOne() {
     return this.stream().max(Card.CARD_COMPARATOR).orElse(null);
@@ -28,6 +28,7 @@ public abstract class CardPattern extends ArrayList<Card> {
         .orElse(null);
   }
 
+  @Override
   public String toString() {
     return String.format(
         "%s %s", getName(), this.stream().map(Card::toString).collect(Collectors.joining(" ")));

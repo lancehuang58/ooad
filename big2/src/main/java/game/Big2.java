@@ -8,14 +8,13 @@ import game.card.pattern.CardPatternType;
 import java.util.*;
 import lombok.extern.slf4j.Slf4j;
 
-import static java.util.Objects.isNull;
-import static java.util.Objects.nonNull;
+import static java.util.Objects.*;
 
 @Slf4j
 public class Big2 {
   private final List<Player> players;
-  private final Dictionary<CardPatternType, Comparator<CardPattern>> PATTERN_COMPARATORS_LOOKUP =
-      new Hashtable<>();
+  private final Map<CardPatternType, Comparator<CardPattern>> patternTypeComparatorMap =
+      new EnumMap<>(CardPatternType.class);
   private CardPattern topPlay;
   private Player topPlayer;
   private Deck deck;
@@ -24,10 +23,10 @@ public class Big2 {
 
   public Big2() {
     players = new ArrayList<>();
-    PATTERN_COMPARATORS_LOOKUP.put(CardPatternType.SINGLE, new SingleComparator());
-    PATTERN_COMPARATORS_LOOKUP.put(CardPatternType.TWO_PAIR, new TwoPairComparator());
-    PATTERN_COMPARATORS_LOOKUP.put(CardPatternType.STRAIGHT, new SingleComparator());
-    PATTERN_COMPARATORS_LOOKUP.put(CardPatternType.FULL_HOUSE, new FullHouseComparator());
+    patternTypeComparatorMap.put(CardPatternType.SINGLE, new SingleComparator());
+    patternTypeComparatorMap.put(CardPatternType.TWO_PAIR, new TwoPairComparator());
+    patternTypeComparatorMap.put(CardPatternType.STRAIGHT, new SingleComparator());
+    patternTypeComparatorMap.put(CardPatternType.FULL_HOUSE, new FullHouseComparator());
   }
 
   private static boolean isPass(String input) {
@@ -93,7 +92,9 @@ public class Big2 {
       topPlayer = currentPlayer;
     } else {
       Comparator<CardPattern> comparator =
-          PATTERN_COMPARATORS_LOOKUP.get(topPlay.getCardPatternType());
+          patternTypeComparatorMap.get(topPlay.getCardPatternType());
+      requireNonNull(comparator);
+
       boolean compareResult = comparator.compare(topPlay, pattern) > 0;
       topPlay = compareResult ? topPlay : pattern;
       topPlayer = compareResult ? topPlayer : currentPlayer;

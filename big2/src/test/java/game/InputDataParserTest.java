@@ -12,21 +12,21 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class InputDataParserTest {
 
-    @Test
-    void test_parse_input_to_deck() throws IOException {
-        InputDataParser parser = new InputDataParser(Constant.FILE_PATH);
-        String s = parser.nextLine();
-        Deck deck = new Deck(s);
-        Card firstCard = deck.deal();
-        assertEquals(Rank.K, firstCard.getRank());
-        assertEquals(Suit.C, firstCard.getSuit());
-    }
+  @Test
+  void test_parse_input_to_deck() throws IOException {
+    InputDataParser parser = new InputDataParser(Client.FILE_PATH);
+    String s = parser.nextLine();
+    Deck deck = new Deck(s);
+    Card firstCard = deck.deal();
+    assertEquals(Rank.RANK_K, firstCard.getRank());
+    assertEquals(Suit.C, firstCard.getSuit());
+  }
 
-    @Test
-    void test_get_next_line() throws IOException {
-        InputDataParser parser = new InputDataParser(Constant.FILE_PATH);
-        String s = parser.nextLine();
-        assertNotNull(s);
-        assertEquals(parser.nextLine(), "水球");
-    }
+  @Test
+  void test_get_next_line() throws IOException {
+    InputDataParser parser = new InputDataParser(Client.FILE_PATH);
+    String s = parser.nextLine();
+    assertNotNull(s);
+    assertEquals("水球", parser.nextLine());
+  }
 }

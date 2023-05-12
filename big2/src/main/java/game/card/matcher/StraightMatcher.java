@@ -8,11 +8,11 @@ import java.util.stream.Collectors;
 
 public class StraightMatcher extends PatternMatcher {
 
-  private static final String straightPattern = "A23456789TJQK";
-  private static final String straightPattern2 = "TJQKA";
-  private static final String straightPattern3 = "JQKA2";
-  private static final String straightPattern4 = "QKA23";
-  private static final String straightPattern5 = "KA234";
+  private static final String STRAIGHT_PATTERN = "A23456789TJQK";
+  private static final String STRAIGHT_PATTERN2 = "TJQKA";
+  private static final String STRAIGHT_PATTERN3 = "JQKA2";
+  private static final String STRAIGHT_PATTERN4 = "QKA23";
+  private static final String STRAIGHT_PATTERN5 = "KA234";
 
   public StraightMatcher(PatternMatcher next) {
     super(next);
@@ -31,11 +31,11 @@ public class StraightMatcher extends PatternMatcher {
   }
 
   private boolean straightMatch(String straight) {
-    return straightPattern.contains(straight)
-        || straightPattern2.contains(straight)
-        || straightPattern3.contains(straight)
-        || straightPattern4.contains(straight)
-        || straightPattern5.contains(straight);
+    return STRAIGHT_PATTERN.contains(straight)
+        || STRAIGHT_PATTERN2.contains(straight)
+        || STRAIGHT_PATTERN3.contains(straight)
+        || STRAIGHT_PATTERN4.contains(straight)
+        || STRAIGHT_PATTERN5.contains(straight);
   }
 
   @Override

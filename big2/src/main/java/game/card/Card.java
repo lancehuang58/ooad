@@ -10,7 +10,7 @@ import org.apache.commons.lang3.EnumUtils;
 @AllArgsConstructor(staticName = "of")
 @EqualsAndHashCode(of = {"rank", "suit"})
 public class Card implements Comparable<Card> {
-  public static Comparator<Card> CARD_COMPARATOR =
+  public static final Comparator<Card> CARD_COMPARATOR =
       Comparator.comparing(Card::getRank).thenComparing(Card::getSuit);
   private Rank rank;
   private Suit suit;
