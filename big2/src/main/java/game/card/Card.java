@@ -15,10 +15,6 @@ public class Card implements Comparable<Card> {
   private Rank rank;
   private Suit suit;
 
-  public static Card of(String r, String s) {
-    return new Card(Rank.fromValue(r), EnumUtils.getEnum(Suit.class, s));
-  }
-
   @Override
   public String toString() {
     return String.format("%s[%s]", suit.name(), rank.getText());

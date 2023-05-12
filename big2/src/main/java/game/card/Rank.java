@@ -24,11 +24,6 @@ public enum Rank {
   private final String text;
   private final char signal;
 
-  public static Rank fromValue(char c) {
-    String s = String.valueOf(c);
-    return fromValue(s);
-  }
-
   public static Rank fromValue(String s) {
 
     for (Rank rank : EnumSet.allOf(Rank.class)) {
